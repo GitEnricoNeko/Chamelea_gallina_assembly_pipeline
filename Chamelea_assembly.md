@@ -1,6 +1,6 @@
-```diff
-! Primary Assembly
-```
+
+# Primary Assembly
+
 ```bash
 hifiasm -o Cgal -t32 --h1 bgi_17Jul24_camelea_hic/F24A910000005-02_GALklesD/Clam_tissue-5A/clam_hic_1.fq --h2 bgi_17Jul24_camelea_hic/F24A910000005-02_GALklesD/Clam_tissue-5A/clam_hic_2.fq Hifi.data.fastq.gz -s 0.35 --primary > hifi_assembly_hic_primary.log 2>&1 &
 ```
