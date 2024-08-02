@@ -1,10 +1,15 @@
 # Primary Assembly
 
+#### Variables
+
+```bash
 Hic_file1="full path hi-c file 1"
 Hic_file2="full path hi-c file 2"
 HiFi_file="full path HiFi reads file"
 Genome_prefix="specify genopme prefix"
 purge_dups_path="full path to purge_dups bin folder"
+```
+
 ```bash
 hifiasm -o $Genome_prefix -t32 --h1 $Hic_file1 --h2 $Hic_file2 $HiFi_file -s 0.35 --primary > hifi_assembly_hic_primary.log 2>&1 &
 ```
