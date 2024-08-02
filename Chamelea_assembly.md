@@ -30,7 +30,7 @@ minimap2 -I 200G -t 24 -xasm5 -DP split.fasta split.fasta > split.genome.paf
 ### Calculate Haploid/Diploid Coverage Threshold and Remove Haplotype Duplicates from Assembly
 
 ```bash
-$purge_dups_path/pbcstat Chamelea_Hifi.paf
+$purge_dups_path/pbcstat $Genome_prefix.Hifi.paf
 
 $purge_dups_path/calcuts PB.stat > cutoffs 2>calcults.log
 
@@ -50,3 +50,4 @@ $purge_dups_path/purge_dups -2 -T cutoffs -c PB.base.cov split.genome.paf > dups
 
 $purge_dups_path/get_seqs -p $Genome_prefix.purged dups.bed $Genome_prefix.hic.p.fasta
 ```
+### Suggestion at this point you can use hist_plot.py scripts of purge_dups package to produce a genome coverage plot
