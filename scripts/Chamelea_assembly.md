@@ -46,17 +46,7 @@ $purge_dups_path/purge_dups -2 -T cutoffs -c PB.base.cov split.genome.paf > dups
 $purge_dups_path/get_seqs dups.bed $Genome_prefix.hic.p.fasta
 ```
 
-### Calculate Haploid/Diploid Coverage Threshold and Remove Haplotype Duplicates from Assembly
 
-```bash
-$purge_dups_path/pbcstat Chamelea_Hifi.paf
-
-$purge_dups_path/calcuts PB.stat > cutoffs 2>calcults.log
-
-$purge_dups_path/purge_dups -2 -T cutoffs -c PB.base.cov split.genome.paf > dups.bed 2> purge_dups.log
-
-$purge_dups_path/get_seqs -p $Genome_prefix.purged dups.bed $Genome_prefix.hic.p.fasta
-```
 #### Suggestion at this point you can use hist_plot.py scripts of purge_dups package to produce a genome coverage plot and set the best cutoff values
 
 ```bash
