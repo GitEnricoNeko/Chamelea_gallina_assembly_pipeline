@@ -50,7 +50,11 @@ $purge_dups_path/purge_dups -2 -T cutoffs -c PB.base.cov split.genome.paf > dups
 
 $purge_dups_path/get_seqs -p $Genome_prefix.purged dups.bed $Genome_prefix.hic.p.fasta
 ```
-### Suggestion at this point you can use hist_plot.py scripts of purge_dups package to produce a genome coverage plot
+#### Suggestion at this point you can use hist_plot.py scripts of purge_dups package to produce a genome coverage plot and set the best cutoff values
+
+```bash
+python3 hist_plot.py -c cutoffs PB.stat PB.cov.png
+```
 
 <p align="center">
 <img src='../pictures/PB.cov.png' width='400'>
