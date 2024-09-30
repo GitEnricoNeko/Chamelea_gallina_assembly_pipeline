@@ -3,8 +3,8 @@
 ## HI-C reads mapping
 
 ```bash
-bwa mem -t 24 Cgal.hic.p.purged.fa clam_hic_1.fq | samtools view -@ 10 -Sb - > forward.bam
-bwa mem -t 24 Cgal.hic.p.purged.fa clam_hic_2.fq | samtools view -@ 10 -Sb - > reverse.bam
+bwa mem -t 24 $Genome_prefix.hic.p.purged.fa $Hic_file1 | samtools view -@ 10 -Sb - > forward.bam
+bwa mem -t 24 $Genome_prefix.hic.p.purged.fa $Hic_file2 | samtools view -@ 10 -Sb - > reverse.bam
 
 ```
 
