@@ -46,6 +46,9 @@ $purge_dups_path/calcuts PB.stat > cutoffs 2>calcults.log
 $purge_dups_path/purge_dups -2 -T cutoffs -c PB.base.cov split.genome.paf > dups.bed 2> purge_dups.log
 
 $purge_dups_path/get_seqs dups.bed $Genome_prefix.hic.p.fasta
+
+mv purged.fa $Genome_prefix.hic.p.purged.fa
+
 ```
 
 
