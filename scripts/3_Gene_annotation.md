@@ -14,6 +14,9 @@ hisat2 -p 20 -x $Genome_prefix -1 Hepatopancreas_1.fq.gz -2 Hepatopancreas_2.fq.
 ## Braker3
 
 ```bash
-singularity exec singularity/braker3.sif braker.pl --genome $Genome_prefix.final.masked.fa --prot_seq protein.fa --bam Gill.bam,Gonad.bam,Mantle.bam,Haemolymph.bam,Hepatopancreas.bam --threads 18  --softmasking --species={$Genome_prefix} --skip_fixing_broken_genes 
+singularity exec singularity/braker3.sif braker.pl --genome $Genome_prefix.final.masked.fa \
+--prot_seq protein.fa \
+--bam Gill.bam,Gonad.bam,Mantle.bam,Haemolymph.bam,Hepatopancreas.bam \
+--threads 18  --softmasking --species={$Genome_prefix} --skip_fixing_broken_genes 
 ```
 
