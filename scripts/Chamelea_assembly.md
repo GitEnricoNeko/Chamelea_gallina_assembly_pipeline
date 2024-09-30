@@ -6,7 +6,7 @@
 Hic_file1="full path hi-c file 1"
 Hic_file2="full path hi-c file 2"
 HiFi_file="full path HiFi reads file"
-Genome_prefix="specify genopme prefix"
+Genome_prefix="specify genome prefix"
 purge_dups_path="full path to purge_dups bin folder"
 ```
 
