@@ -15,11 +15,11 @@ bwa mem -t 24 Cgal.hic.p.purged.fa clam_hic_2.fq | samtools view -@ 10 -Sb - > r
 samtools view -h forward.bam | perl /home/mapping_pipeline/filter_five_end.pl | samtools view -Sb - > filter_forward.bam
 samtools view -h backward.bam | perl /home/mapping_pipeline/filter_five_end.pl | samtools view -Sb - > filter_backward.bam
 perl /home/mapping_pipeline/two_read_bam_combiner.pl filter_forward.bam filter_backward.bam samtools 10 | samtools view -bS -t primary.fa.fai - | samtools sort -@ 10 -o sra.bam -
-java -Xmx128G -Djava.io.tmpdir=temp/ -jar /home/gatk/picard.jar AddOrReplaceReadGroups INPUT=sra.bam OUTPUT=paired.sra.bam ID=MGAL LB=MGAL SM=MGAL1 PL=ILLUMINA PU=none
-java -Xmx128G -XX:-UseGCOverheadLimit -Djava.io.tmpdir=temp/ -jar /home/gatk/picard.jar MarkDuplicates INPUT=paired.sra.bam OUTPUT=mgal.primary.bam METRICS_FILE=metrics.mgal.txt TMP_DIR=temp/ ASSUME_SORTED=TRUE VALIDATION_STRINGENCY=LENIENT REMOVE_DUPLICATES=TRUE
-samtools index mgal.primary.bam
-perl /home/mapping_pipeline/get_stats.pl mgal.primary.bam > mgal.primary.bam.stats
-bamToBed -i mgal.primary.bam > alignment.bed
+java -Xmx128G -Djava.io.tmpdir=temp/ -jar /home/gatk/picard.jar AddOrReplaceReadGroups INPUT=sra.bam OUTPUT=paired.sra.bam ID=CGAL LB=CGAL SM=CGAL1 PL=ILLUMINA PU=none
+java -Xmx128G -XX:-UseGCOverheadLimit -Djava.io.tmpdir=temp/ -jar /home/gatk/picard.jar MarkDuplicates INPUT=paired.sra.bam OUTPUT=cgal.primary.bam METRICS_FILE=metrics.cgal.txt TMP_DIR=temp/ ASSUME_SORTED=TRUE VALIDATION_STRINGENCY=LENIENT REMOVE_DUPLICATES=TRUE
+samtools index cgal.primary.bam
+perl /home/mapping_pipeline/get_stats.pl cgal.primary.bam > cgal.primary.bam.stats
+bamToBed -i cgal.primary.bam > alignment.bed
 sort -k 4 alignment.bed > tmp && mv tmp alignment.bed
 ```
 
