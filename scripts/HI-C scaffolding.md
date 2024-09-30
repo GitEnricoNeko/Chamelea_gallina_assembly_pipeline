@@ -14,12 +14,12 @@ bwa mem -t 24 $Genome_prefix.hic.p.purged.fa $Hic_file2 | samtools view -@ 10 -S
 ```bash
 samtools view -h forward.bam | perl /home/mapping_pipeline/filter_five_end.pl | samtools view -Sb - > filter_forward.bam
 samtools view -h backward.bam | perl /home/mapping_pipeline/filter_five_end.pl | samtools view -Sb - > filter_backward.bam
-perl /home/mapping_pipeline/two_read_bam_combiner.pl filter_forward.bam filter_backward.bam samtools 10 | samtools view -bS -t primary.fa.fai - | samtools sort -@ 10 -o sra.bam -
+perl /home/mapping_pipeline/two_read_bam_combiner.pl filter_forward.bam filter_backward.bam samtools 10 | samtools view -bS -t $Genome_prefix.hic.p.purged.fa.fai - | samtools sort -@ 10 -o sra.bam -
 java -Xmx128G -Djava.io.tmpdir=temp/ -jar /home/gatk/picard.jar AddOrReplaceReadGroups INPUT=sra.bam OUTPUT=paired.sra.bam ID=CGAL LB=CGAL SM=CGAL1 PL=ILLUMINA PU=none
-java -Xmx128G -XX:-UseGCOverheadLimit -Djava.io.tmpdir=temp/ -jar /home/gatk/picard.jar MarkDuplicates INPUT=paired.sra.bam OUTPUT=cgal.primary.bam METRICS_FILE=metrics.cgal.txt TMP_DIR=temp/ ASSUME_SORTED=TRUE VALIDATION_STRINGENCY=LENIENT REMOVE_DUPLICATES=TRUE
+java -Xmx128G -XX:-UseGCOverheadLimit -Djava.io.tmpdir=temp/ -jar /home/gatk/picard.jar MarkDuplicates INPUT=paired.sra.bam OUTPUT=$Genome_prefix.primary.bam METRICS_FILE=metrics.cgal.txt TMP_DIR=temp/ ASSUME_SORTED=TRUE VALIDATION_STRINGENCY=LENIENT REMOVE_DUPLICATES=TRUE
 samtools index cgal.primary.bam
-perl /home/mapping_pipeline/get_stats.pl cgal.primary.bam > cgal.primary.bam.stats
-bamToBed -i cgal.primary.bam > alignment.bed
+perl /home/mapping_pipeline/get_stats.pl $Genome_prefix.primary.bam > $Genome_prefix.primary.bam.stats
+bamToBed -i $Genome_prefix.primary.bam > alignment.bed
 sort -k 4 alignment.bed > tmp && mv tmp alignment.bed
 ```
 
@@ -27,7 +27,7 @@ sort -k 4 alignment.bed > tmp && mv tmp alignment.bed
 ## SALSA pipeline
 
 ```bash
-python /home/SALSA/run_pipeline.py -a primary.fa -l primary.fa.fai -b alignment.bed -e GATC -o scaffolds -m yes -i 20 -p yes
+python /home/SALSA/run_pipeline.py -a $Genome_prefix.hic.p.purged.fa -l $Genome_prefix.hic.p.purged.fa.fai -b alignment.bed -e GATC -o scaffolds -m yes -i 20 -p yes
 ```
 
 ## yagcloser
