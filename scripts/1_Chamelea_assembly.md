@@ -16,13 +16,6 @@ Primary assembly with hifiasm
 hifiasm -o $Genome_prefix -t32 --h1 $Hic_file1 --h2 $Hic_file2 $HiFi_file -s 0.35 --primary > hifi_assembly_hic_primary.log 2>&1 &
 ```
 
-## Quality Control
-
-Change the parameters based on the organism of interest
-
-```bash
-busco -i $Genome_prefix.hic.p.fasta -o busco_camelea -l metazoa -c 8 -m geno -f 
-```
 
 ## Running Purge_Dups:
 
