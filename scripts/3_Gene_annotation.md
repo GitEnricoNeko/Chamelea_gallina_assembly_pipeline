@@ -31,3 +31,29 @@ Trinity --genome_guided_bam all.sorted.bam --max_memory 250G --genome_guided_max
 ```bash
 Launch_PASA_pipeline.pl -c pasa.alignAssembly.Template.txt -R -g $Genome_prefix.final.masked.fa -t Trinity-GG.fasta -C -r --ALIGNERS gmap,minimap2,blat
 ```
+
+## Evidence Modeler
+```bash
+touch weights.txt
+echo -e "ABINITIO_PREDICTION\tAUGUSTUS\t1" >> weights.txt
+echo -e "TRANSCRIPT\tassembler-mydb.sqlite\t10" >> weights.txt
+EVidenceModeler --CPU 32 --sample_id cgal --weights weights.txt --genome $Genome_prefix.final.masked.fa --gene_predictions augustus.evm.gff3 --transcript_alignments pasa_db.pasa_assemblies.gff3 --segmentSize 100000 --overlapSize 10000
+```
+
+## Add UTRs with PASA (2 iterations)
+```bash
+Load_Current_Gene_Annotations.dbi -c pasa.alignAssembly.Template.txt -g /home/umberto/raid5/camelea/softmasked_xs/Cgal.final.fa.masked -P cgal.EVM.gff3
+PASApipeline/misc_utilities/pasa_gff3_validator.pl cgal.EVM.gff3
+Launch_PASA_pipeline.pl -c annotCompare.config -A -g $Genome_prefix.final.masked.fa  -t Trinity-GG.fasta
+```
+## InterProScan
+```bash
+./interproscan.sh -cpu 36 -d interproscan -dp -goterms -iprlookup -i cgal.EVM.pep
+```
+
+## Non coding RNA
+```bash
+cmpress Rfam.cm
+esl-seqstat $Genome_prefix.final.masked.fa
+cmscan -Z 3615.7 --cut_ga --rfam --nohmmonly --tblout mrum-genome.tblout --fmt 2 --clanin Rfam.clanin Rfam.cm $Genome_prefix.final.masked.fa >$Genome_prefix.genome.cmscan
+```
