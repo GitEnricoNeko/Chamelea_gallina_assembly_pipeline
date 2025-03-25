@@ -50,7 +50,17 @@ Launch_PASA_pipeline.pl -c annotCompare.config -A -g $Genome_prefix.final.masked
 ```bash
 ./interproscan.sh -cpu 36 -d interproscan -dp -goterms -iprlookup -i cgal.EVM.pep
 ```
+## blastp
 
+```bash
+blastp \
+-query cgal.EVM.pep \
+-db swissprot \
+-out cgal.EVM.pep.swissprot.txt \
+-outfmt "10 evalue length qseqid qlen qstart qend sacc slen sstart send pident nident sstrand qcovs qseq sseq sgi stitle" \
+-num_threads 32 -evalue 1e-5 -max_target_seqs 1 \
+-max_hsps 1
+```
 ## Non coding RNA
 ```bash
 cmpress Rfam.cm
