@@ -13,8 +13,8 @@ bwa mem -t 24 $Genome_prefix.hic.p.purged.fa $Hic_file2 | samtools view -@ 10 -S
 
 ```bash
 samtools view -h forward.bam | perl /home/mapping_pipeline/filter_five_end.pl | samtools view -Sb - > filter_forward.bam
-samtools view -h backward.bam | perl /home/mapping_pipeline/filter_five_end.pl | samtools view -Sb - > filter_backward.bam
-perl /home/mapping_pipeline/two_read_bam_combiner.pl filter_forward.bam filter_backward.bam samtools 10 | samtools view -bS -t $Genome_prefix.hic.p.purged.fa.fai - | samtools sort -@ 10 -o sra.bam -
+samtools view -h reverse.bam | perl /home/mapping_pipeline/filter_five_end.pl | samtools view -Sb - > filter_reverse.bam
+perl /home/mapping_pipeline/two_read_bam_combiner.pl filter_forward.bam filter_reverse.bam samtools 10 | samtools view -bS -t $Genome_prefix.hic.p.purged.fa.fai - | samtools sort -@ 10 -o sra.bam -
 java -Xmx128G -Djava.io.tmpdir=temp/ -jar /home/gatk/picard.jar AddOrReplaceReadGroups INPUT=sra.bam OUTPUT=paired.sra.bam ID=CGAL LB=CGAL SM=CGAL1 PL=ILLUMINA PU=none
 java -Xmx128G -XX:-UseGCOverheadLimit -Djava.io.tmpdir=temp/ -jar /home/gatk/picard.jar MarkDuplicates INPUT=paired.sra.bam OUTPUT=$Genome_prefix.primary.bam METRICS_FILE=metrics.cgal.txt TMP_DIR=temp/ ASSUME_SORTED=TRUE VALIDATION_STRINGENCY=LENIENT REMOVE_DUPLICATES=TRUE
 samtools index cgal.primary.bam
