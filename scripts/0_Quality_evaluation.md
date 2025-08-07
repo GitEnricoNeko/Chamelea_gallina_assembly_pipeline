@@ -18,6 +18,8 @@ fastqc $Hic_file2 -t 12
 fastqc $HiFi_file -t 12
 ```
 
+## Custom python script
+
 ```bash
-python qstats.py -i clam_hifi.fastq.gz
+python qstats.py -i $HiFi_file
 ```
