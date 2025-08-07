@@ -2,7 +2,7 @@
 
 Change the parameters based on the organism of interest
 
-##Flagger
+## Flagger
 
 ```bash
  minimap2 -t 24 --secondary=yes -ax map-pb --MD $Genome_prefix.final.masked.fa .$HiFi_file \
@@ -28,7 +28,7 @@ docker run -it --rm -v${WORKING_DIR}:${WORKING_DIR} mobinasri/flagger:v1.1.0 \
 ```
 
 
-##BUSCO
+## BUSCO
 
 ```bash
 busco -i $Genome_prefix.final.masked.fa -o busco_camelea -l eukaryota -c 8 -m geno -f 
